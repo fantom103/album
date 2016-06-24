@@ -18,6 +18,9 @@ angular.module('app', [
 		Filters.name,
 		Directives.name
 	])
+	.constant('config', {
+		api: 'http://localhost:9090/api'
+	})
 	.config(($locationProvider) => {
 		"ngInject";
 		// @see: https://github.com/angular-ui/ui-router/wiki/Frequently-Asked-Questions
