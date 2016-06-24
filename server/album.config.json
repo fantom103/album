@@ -1,0 +1,15 @@
+{
+  "serveStatic": true,
+  "staticAlias": "/up",
+  "api": {
+    "host": "0.0.0.0",
+    "port": 9090
+  },
+  "upload": {
+    "dest": "upload",
+    "fieldName": "image",
+    "limits": {
+      "fileSize": 1048576
+    }
+  }
+}
