@@ -1,0 +1,19 @@
+<navbar></navbar>
+<main>
+	<div class="section no-pad-bot" id="index-banner">
+		<div class="container">
+			<add-photo-form
+					on-photo-added="vm.addPhoto(photo)"
+					on-photo-added-error="vm.showError()"></add-photo-form>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<photo-card
+					ng-repeat="photo in vm.photos | reverse"
+					photo="photo"
+					on-show-details="vm.showDetails(photo.id)"></photo-card>
+		</div>
+	</div>
+</main>

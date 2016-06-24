@@ -1,0 +1,16 @@
+<div class="container add-photo-form">
+	<div class="row">
+		<div class="card">
+			<div class="card-image waves-effect waves-block waves-light">
+				<img class="activator" ng-src="{{vm.pic}}">
+			</div>
+			<div class="card-content">
+				<file-input url="http://localhost:9090/api/upload"
+							on-uploaded="vm.onImageUploaded(path)"></file-input>
+				<input ng-model="vm.title" placeholder="Title"/>
+				<a class="waves-effect waves-light btn"
+				   ng-click="vm.postPhoto()">Add</a>
+			</div>
+		</div>
+	</div>
+</div>
