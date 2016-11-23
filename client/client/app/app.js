@@ -19,7 +19,7 @@ angular.module('app', [
 		Directives.name
 	])
 	.constant('config', {
-		api: 'http://localhost:9090/api'
+		api: 'http://ec2-52-87-241-215.compute-1.amazonaws.com:9090/api'
 	})
 	.config(($locationProvider) => {
 		"ngInject";
