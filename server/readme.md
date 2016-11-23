@@ -29,3 +29,7 @@ Delete photo #1 :
 ```
 curl -X DELETE http://localhost:9090/api/album/1
 ```
+
+
+To send JSON on Passport failure, use "Custom Callback" as described here:
+http://passportjs.org/docs/authenticate
