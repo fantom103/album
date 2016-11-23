@@ -1,4 +1,4 @@
-const userFactory = function ($http, $q, config) {
+const sessionFactory = function ($http, $q, config) {
   "ngInject";
 
   const {api} = config;
@@ -29,4 +29,4 @@ const userFactory = function ($http, $q, config) {
   }
 };
 
-export default userFactory;
+export default sessionFactory;

@@ -1,9 +1,9 @@
 import angular from 'angular';
 import photoFactory from './photo-factory';
-import accountFactory from './user-factory';
+import sessionFactory from './session-factory';
 
 const servicesModule = angular.module('app.services', [])
 	.factory('photoFactory', photoFactory)
-	.factory('userFactory', accountFactory);
+	.factory('sessionFactory', sessionFactory);
 
 export default servicesModule;

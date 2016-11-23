@@ -1,16 +1,16 @@
 class LoginController {
-  constructor($state, userFactory) {
+  constructor($state, sessionFactory) {
     "ngInject";
 
     this.$state = $state;
-    this.userFactory = userFactory;
+    this.sessionFactory = sessionFactory;
 
     this.email = '';
     this.pass = '';
   }
 
   onLogin() {
-    this.userFactory
+    this.sessionFactory
       .login(this.email, this.pass)
       .then((result) => {
         this.$state.go('profile');
