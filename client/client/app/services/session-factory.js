@@ -7,14 +7,16 @@ const sessionFactory = function ($http, $q, config) {
 
   const isLoggedIn = () => !!user;
 
+  const getUser = () => user;
+
   const login = (email, password) => {
     const deferred = $q.defer();
 
     $http
       .post(`${api}/login/`, {email, password})
       .then((payload) => {
-        user = payload.data;
-        deferred.resolve(payload.data)
+        user = payload.data.user;
+        deferred.resolve(payload.data.user)
       })
       .catch((err) => {
         deferred.reject(err);
@@ -25,6 +27,7 @@ const sessionFactory = function ($http, $q, config) {
 
   return {
     login,
+    getUser,
     isLoggedIn
   }
 };
