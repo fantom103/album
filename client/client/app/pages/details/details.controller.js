@@ -1,8 +1,11 @@
 class DetailsController {
-	constructor($stateParams, $q, photoFactory) {
+	constructor($stateParams, $q, photoFactory, config) {
 		"ngInject";
 		const id = $stateParams.id;
-		
+
+		const { photoPrefix } = config;
+
+		this.photoPrefix = photoPrefix;
 		/**
 		 * We could update the parts of UI
 		 * as data arrives, but this way it will update

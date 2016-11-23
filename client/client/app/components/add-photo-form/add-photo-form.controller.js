@@ -1,32 +1,34 @@
 export default class AddPhotoFormController {
-	constructor(photoFactory) {
-		"ngInject";
+  constructor(photoFactory, config) {
+    "ngInject";
 
-		this._photoFactory = photoFactory;
+    const {photoPrefix, uploadEndpoint} = config;
+    this._photoFactory = photoFactory;
 
-		this.pic = '';
-		this.path = '';
-		this.title = '';
-		this.reset();
-
+    this.uploadEndpoint = uploadEndpoint;
+    this.photoPrefix = photoPrefix;
+    this.pic = '';
+    this.path = '';
+    this.title = '';
+    this.reset();
 	}
 
-	onImageUploaded(path) {
-		this.path = path;
-		this.pic = 'http://ec2-52-87-241-215.compute-1.amazonaws.com:9090/' + path;
-	}
+  onImageUploaded(path) {
+    this.path = path;
+    this.pic = `${this.photoPrefix}${path}`;
+  }
 
-	postPhoto() {
-		this._photoFactory.addPhoto(this.title, this.path).then((resp) => {
-			this.onPhotoAdded({
-				photo: resp.data
-			});
-			this.reset();
-		});
-	}
+  postPhoto() {
+    this._photoFactory.addPhoto(this.title, this.path).then((resp) => {
+      this.onPhotoAdded({
+        photo: resp.data
+      });
+      this.reset();
+    });
+  }
 
-	reset() {
-		this.pic = 'img/placeholder.jpg';
-		this.path = '';
-	}
+  reset() {
+    this.pic = 'img/placeholder.jpg';
+    this.path = '';
+  }
 }

@@ -7,7 +7,7 @@ class ProfileController {
     this.email = '';
 
     this.gotSearchResult = false;
-    
+
 	}
 
 	onSearch() {

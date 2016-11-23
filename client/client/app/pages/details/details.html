@@ -3,7 +3,7 @@
 	<div class="row">
 		<div class="card">
 			<div class="card-image waves-effect waves-block waves-light">
-				<img class="activator" ng-src="http://localhost:9090/{{vm.photo.path}}">
+				<img class="activator" ng-src="{{vm.photoPrefix}}{{vm.photo.path}}">
 			</div>
 			<div class="card-content">
 				<span class="card-title activator grey-text text-darken-4 ng-binding">{{vm.photo.title}}</span>
