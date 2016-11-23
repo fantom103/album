@@ -28,14 +28,14 @@ angular.module('app', [
     $locationProvider.html5Mode(true).hashPrefix('!');
 	})
   .component('app', AppComponent)
-  .run(($rootScope, $state) => {
-    "ngInject"
+  .run(($rootScope, $state, userFactory) => {
+    "ngInject";
     $rootScope.$on('$stateChangeStart',
       (event, toState) => {
         const target = toState.name;
         const whitelist = ['login', 'signup'];
 
-        if (!whitelist.includes(target)) {
+        if (!userFactory.isLoggedIn() && !whitelist.includes(target)) {
           console.log('Preventing state change');
           event.preventDefault();
           $state.go('login');

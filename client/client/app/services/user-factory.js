@@ -13,7 +13,8 @@ const userFactory = function ($http, config) {
   };
 
   return {
-    login
+    login,
+    isLoggedIn
   }
 };
 
