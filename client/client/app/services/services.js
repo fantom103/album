@@ -1,7 +1,9 @@
 import angular from 'angular';
 import photoFactory from './PhotoFactory';
+import accountFactory from './AccountFactory';
 
-let servicesModule = angular.module('app.services', [])
-	.factory('photoFactory', photoFactory);
+const servicesModule = angular.module('app.services', [])
+	.factory('photoFactory', photoFactory)
+	.factory('accountFactory', accountFactory);
 
 export default servicesModule;

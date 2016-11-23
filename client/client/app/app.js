@@ -11,20 +11,35 @@ import Filters from './filters/filters';
 import AppComponent from './app.component';
 
 angular.module('app', [
-		uiRouter,
-		Components.name,
-		Pages.name,
-		Services.name,
-		Filters.name,
-		Directives.name
-	])
-	.constant('config', {
-		api: 'http://ec2-52-87-241-215.compute-1.amazonaws.com:9090/api'
+    uiRouter,
+    Components.name,
+    Pages.name,
+    Services.name,
+    Filters.name,
+    Directives.name
+  ])
+  .constant('config', {
+    api: 'http://localhost:9090/api'
+  })
+  .config(($locationProvider) => {
+    "ngInject";
+    // @see: https://github.com/angular-ui/ui-router/wiki/Frequently-Asked-Questions
+    // #how-to-configure-your-server-to-work-with-html5mode
+    $locationProvider.html5Mode(true).hashPrefix('!');
 	})
-	.config(($locationProvider) => {
-		"ngInject";
-		// @see: https://github.com/angular-ui/ui-router/wiki/Frequently-Asked-Questions
-		// #how-to-configure-your-server-to-work-with-html5mode
-		$locationProvider.html5Mode(true).hashPrefix('!');
-	})
-	.component('app', AppComponent);
+  .component('app', AppComponent)
+  .run(($rootScope, $state) => {
+    "ngInject"
+    $rootScope.$on('$stateChangeStart',
+      (event, toState) => {
+        const target = toState.name;
+        const whitelist = ['login', 'signup'];
+
+        if (!whitelist.includes(target)) {
+          console.log('Preventing state change');
+          event.preventDefault();
+          $state.go('login');
+        }
+      }
+    );
+  });
