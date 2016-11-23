@@ -1,8 +1,23 @@
 <navbar></navbar>
 <main>
-	<div class="section no-pad-bot" id="index-banner">
-		<div class="container">
-			This is login page
-		</div>
-	</div>
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <form ng-submit="vm.onLogin()">
+
+        <input name="email" placeholder="email"
+			   ng-model="vm.email" />
+		<input name="password" type="password"
+			   placeholder="password" ng-model="vm.pass">
+
+        <button class="btn waves-effect waves-light"
+                    type="submit" name="submit">Submit
+          <i class="material-icons right">send</i>
+        </button>
+	  </form>
+
+	  <p>
+        No account yet? <a ui-sref="signup">sign up</a>
+      </p>
+    </div>
+  </div>
 </main>

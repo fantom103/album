@@ -1,20 +1,24 @@
 class LoginController {
-	constructor($state, photoFactory) {
-		"ngInject";
+  constructor($state, userFactory) {
+    "ngInject";
 
-	}
+    this.$state = $state;
+    this.userFactory = userFactory;
 
-	addPhoto(photo) {
-		this.photos.push(photo);
-	};
+    this.email = '';
+    this.pass = '';
+  }
 
-	showError() {
-		console.log('Could not add photo');
-	};
-
-	showDetails(id) {
-		this.$state.go('details', {id: id});
-	}
+  onLogin() {
+    this.userFactory
+      .login(this.email, this.pass)
+      .then((result) => {
+        this.$state.go('profile');
+      })
+      .catch((err) => {
+        console.log('Could not log it');
+      });
+  }
 }
 
 export default LoginController;

@@ -1,4 +1,4 @@
-const userFactory = function ($http, config) {
+const userFactory = function ($http, $q, config) {
   "ngInject";
 
   const {api} = config;
@@ -7,9 +7,20 @@ const userFactory = function ($http, config) {
 
   const isLoggedIn = () => !!user;
 
-  const login = (email, pass) => {
-    console.log('Logging in');
-    return $http.post(`${api}/login/`, {title, path});
+  const login = (email, password) => {
+    const deferred = $q.defer();
+
+    $http
+      .post(`${api}/login/`, {email, password})
+      .then((payload) => {
+        user = payload.data;
+        deferred.resolve(payload.data)
+      })
+      .catch((err) => {
+        deferred.reject(err);
+      });
+
+    return deferred.promise;
   };
 
   return {
