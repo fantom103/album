@@ -4,7 +4,8 @@ class UserStore {
 
   constructor() {
     this._data = [
-      new User(1, 'juriy.bura@gmail.com', 'starfall')
+      new User(1, 'juriy.bura@gmail.com', 'password'),
+      new User(1, 'neuromancer@gmail.com', 'turing')
     ];
 
     this._maxId = 1;
