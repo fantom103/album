@@ -13,7 +13,7 @@ export default class AddPhotoFormController {
 
 	onImageUploaded(path) {
 		this.path = path;
-		this.pic = 'http://localhost:9090/' + path;
+		this.pic = 'http://ec2-52-87-241-215.compute-1.amazonaws.com:9090/' + path;
 	}
 
 	postPhoto() {
