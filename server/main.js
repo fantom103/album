@@ -12,7 +12,7 @@ const config = require('./src/utils/config');
 
 const MemoryStore = require('./src/utils/memory-store');
 const sampleData = require('./src/data/sample-data');
-const photoStore = new MemoryStore(sampleData);
+const photoStore = new MemoryStore(sampleData, 'uuid', false);
 
 const UserStore = require('./src/utils/user-store');
 const sampleUsers = require('./src/data/sample-users');

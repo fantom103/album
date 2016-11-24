@@ -60,6 +60,21 @@ class UserStore extends MemoryStore {
           [this.update(follower), this.update(target)]);
       }).then((values) => values[1]);
   }
+
+  getPhotos(userId, all) {
+    return this.findUserById(userId)
+      .then((user) => {
+
+        const ownPhotos = user.getPhotos().concat([]);
+        if (all) {
+          return user.getFollowing()
+            .map((u) => u.getPhotos())
+            .reduce((res, cur) => res.concat(cur), ownPhotos);
+        } else {
+          return ownPhotos;
+        }
+      });
+  }
 }
 
 module.exports = UserStore;

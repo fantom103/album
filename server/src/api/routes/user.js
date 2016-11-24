@@ -28,7 +28,7 @@ module.exports = (store) => {
 
   router
     .route('/:uid/photos')
-    .get(getUserInfo(store, getPhotos));
+    .get(getUserPhotos(store));
 
   return router;
 };
@@ -91,7 +91,7 @@ const followUser = (store) => {
 const unfollowUser = (store) => {
   return (req, res) => {
     const followerId = req.params.uid;
-    const targetId = req.params.targetId;
+    const targetId = req.query.targetId;
 
     store
       .unfollowUser(followerId, targetId)
@@ -102,6 +102,23 @@ const unfollowUser = (store) => {
         res.status(INTERNAL_SERVER_ERROR).json(err);
       });
   }
+};
+
+const getUserPhotos = (store) => {
+  return (req, res) => {
+    const uid = req.params.uid;
+    const all = req.query.all === 'true' || !req.query.all;
+
+    store
+      .getPhotos(uid, all)
+      .then((photos) => {
+        res.status(OK).json(photos);
+      })
+      .catch((err) => {
+        res.status(INTERNAL_SERVER_ERROR).json(err);
+      });
+  }
+
 };
 
 
@@ -115,5 +132,3 @@ const getBasicInfo = (u) => {
 const getFollowers = (u) => u.followers;
 
 const getFollowing = (u) => u.following;
-
-const getPhotos = (u) => u.photos;
