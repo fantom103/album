@@ -48,6 +48,18 @@ class UserStore extends MemoryStore {
           [this.update(follower), this.update(target)]);
       }).then((values) => values[1]);
   }
+
+  unfollowUser(followerId, targetId) {
+    return Promise.all([ this.find(followerId), this.find(targetId)])
+      .then((values) => {
+        const [follower, target] = values;
+        follower.removeFollowing(target);
+        target.removeFollower(follower);
+
+        return Promise.all(
+          [this.update(follower), this.update(target)]);
+      }).then((values) => values[1]);
+  }
 }
 
 module.exports = UserStore;

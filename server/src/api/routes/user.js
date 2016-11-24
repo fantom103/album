@@ -22,6 +22,9 @@ module.exports = (store) => {
     .get(getUserInfo(store, getFollowing, getBasicInfo))
     .post(followUser(store));
 
+  router
+    .route('/:uid/following/:targetId')
+    .delete(unfollowUser(store));
 
   router
     .route('/:uid/photos')
@@ -76,6 +79,22 @@ const followUser = (store) => {
 
     store
       .followUser(followerId, targetId)
+      .then((target) => {
+        res.status(OK).json(getBasicInfo(target));
+      })
+      .catch((err) => {
+        res.status(INTERNAL_SERVER_ERROR).json(err);
+      });
+  }
+};
+
+const unfollowUser = (store) => {
+  return (req, res) => {
+    const followerId = req.params.uid;
+    const targetId = req.params.targetId;
+
+    store
+      .unfollowUser(followerId, targetId)
       .then((target) => {
         res.status(OK).json(getBasicInfo(target));
       })
