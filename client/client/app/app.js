@@ -10,8 +10,8 @@ import Directives from './directives/directives';
 import Filters from './filters/filters';
 import AppComponent from './app.component';
 
-const server = 'http://ec2-52-87-241-215.compute-1.amazonaws.com:9090';
-// const server = 'http://localhost:9090';
+// const server = 'http://ec2-52-87-241-215.compute-1.amazonaws.com:9090';
+const server = 'http://localhost:9090';
 
 angular.module('app', [
     uiRouter,
