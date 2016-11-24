@@ -83,7 +83,7 @@ class MemoryStore {
 	_addSync(item) {
 	  const idField = this._idField;
 
-		if (this._resetIds) {
+		if (!item[this._idField] || this._resetIds) {
 			item[idField] = this._nextId();
 		} else {
 			this._updateIds(item[idField]);

@@ -1,4 +1,4 @@
-const userFactory = function ($http, config, $q) {
+const userFactory = function ($http, config, $q, sessionFactory) {
   "ngInject";
 
   const { api } = config;
@@ -18,7 +18,7 @@ const userFactory = function ($http, config, $q) {
 
     $http({
         url: `${api}/user`,
-        method: "GET",
+        method: 'GET',
         params: { email }
       })
       .then((res) => def.resolve(res.data))
@@ -27,9 +27,15 @@ const userFactory = function ($http, config, $q) {
     return def.promise;
   };
 
+  const getUserPhotos = () => {
+    const uid = sessionFactory.getUserId();
+    return $http.get(`${api}/user/${uid}/photos`);
+  };
+
   return {
     getUsers,
-    findUsersByEmail
+    findUsersByEmail,
+    getUserPhotos
   }
 };
 

@@ -12,7 +12,9 @@ module.exports = (passport) => {
       const user = Object.assign({}, req.user);
       delete user.password;
 
-      res.status(OK).json(user);
+      const {_id, email} = user;
+
+      res.status(OK).json({_id, email});
     });
 
   router

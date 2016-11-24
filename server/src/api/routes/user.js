@@ -118,7 +118,6 @@ const getUserPhotos = (store) => {
         res.status(INTERNAL_SERVER_ERROR).json(err);
       });
   }
-
 };
 
 

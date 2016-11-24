@@ -32,7 +32,7 @@ module.exports = (store) => {
   router
     .route('/:picId')
     .get((req, res) => {
-      const id = +req.params.picId;
+      const id = req.params.picId;
       store
         .find(id)
         .then((item) => onStoreResponse(res, OK)(null, item))
@@ -57,7 +57,7 @@ module.exports = (store) => {
   router
     .route('/:picId/details')
     .get((req, res) => {
-      const id = +req.params.picId;
+      const id = req.params.picId;
 
       getImageSizeById(id, store, (err, dim) => {
         if (err) {

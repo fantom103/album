@@ -13,7 +13,7 @@ class LoginController {
     this.sessionFactory
       .login(this.email, this.pass)
       .then((result) => {
-        this.$state.go('profile');
+        this.$state.go('home');
       })
       .catch((err) => {
         console.log('Could not log it');

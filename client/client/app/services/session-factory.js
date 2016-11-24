@@ -9,6 +9,8 @@ const sessionFactory = function ($http, $q, config) {
 
   const getUser = () => user;
 
+  const getUserId = () => user._id;
+
   const login = (email, password) => {
     const deferred = $q.defer();
 
@@ -28,7 +30,8 @@ const sessionFactory = function ($http, $q, config) {
   return {
     login,
     getUser,
-    isLoggedIn
+    isLoggedIn,
+    getUserId
   }
 };
 

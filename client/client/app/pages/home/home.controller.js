@@ -1,12 +1,12 @@
 class HomeController {
-	constructor($state, photoFactory) {
+	constructor($state, photoFactory, userFactory) {
 		"ngInject";
 
 		this._photoFactory = photoFactory;
 		this.$state = $state;
 		this.photos = [];
 
-		photoFactory.getPhotos().then((response) => {
+		userFactory.getUserPhotos().then((response) => {
 			this.photos = response.data;
 		});
 	}
