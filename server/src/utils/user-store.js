@@ -22,20 +22,21 @@ class UserStore extends MemoryStore {
     });
   }
 
+  findUsersByEmail(email) {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const value = this._data.filter((u) => {
+          return u.getEmail() === email;
+        });
+        resolve(value);
+      });
+    });
+  }
+
   getUserById(id) {
     return super.find(id);
   }
 
-  getUserByEmail(email) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        const value = this._data.find((u) => {
-          return u.getEmail() === email;
-        });
-        value ? resolve(value) : reject(Error('Could not find user'));
-      });
-    });
-  }
 }
 
 module.exports = UserStore;

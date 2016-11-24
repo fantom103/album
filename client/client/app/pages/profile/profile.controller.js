@@ -1,17 +1,28 @@
 class ProfileController {
-  constructor($state, sessionFactory) {
+  constructor($state, sessionFactory, userFactory) {
     "ngInject";
 
     this.sessionFactory = sessionFactory;
+    this.userFactory = userFactory;
+
     this.user = sessionFactory.getUser();
     this.email = '';
 
     this.gotSearchResult = false;
+    this.searchResult = [];
 
 	}
 
 	onSearch() {
-	  console.log('Searching');
+	  this.userFactory
+      .findUsersByEmail(this.email)
+      .then((users) => {
+        this.gotSearchResult = true;
+        this.searchResult = users;
+      })
+      .catch((err) => {
+        console.log('Could not find users', err)
+      });
   }
 }
 

@@ -3,8 +3,8 @@ class User {
 
   constructor(email, password) {
     this._id = null;
-    this._email = email;
-    this._password = password;
+    this.email = email;
+    this.password = password;
   }
 
   setId(id) {
@@ -16,11 +16,11 @@ class User {
   }
 
   getEmail() {
-    return this._email;
+    return this.email;
   }
 
   getPassword() {
-    return this._password;
+    return this.password;
   }
 }
 

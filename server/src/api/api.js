@@ -5,10 +5,11 @@ const { UNKNOWN_ERROR } = errors;
 const authRouter = require('./routes/auth');
 const uploadRouter = require('./routes/upload');
 const albumRouter = require('./routes/album');
+const userRouter = require('./routes/user');
 
 const API_VERSION = 'v0.0.1';
 
-module.exports = (passport, photoStore, config) => {
+module.exports = (passport, userStore, photoStore, config) => {
   const router = express.Router({ mergeParams: true });
 
   router
@@ -18,6 +19,7 @@ module.exports = (passport, photoStore, config) => {
   router.use('/', authRouter(passport));
   router.use('/', uploadRouter(config.get('upload')));
   router.use('/album', albumRouter(photoStore));
+  router.use('/user', userRouter(userStore));
 
   /**
    * Error handling middleware. These will be quite

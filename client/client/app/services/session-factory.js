@@ -15,8 +15,8 @@ const sessionFactory = function ($http, $q, config) {
     $http
       .post(`${api}/login/`, {email, password})
       .then((payload) => {
-        user = payload.data.user;
-        deferred.resolve(payload.data.user)
+        user = payload.data;
+        deferred.resolve(user)
       })
       .catch((err) => {
         deferred.reject(err);

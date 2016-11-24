@@ -1,7 +1,7 @@
 <navbar></navbar>
 <main>
 	<div class="section no-pad-bot" id="index-banner">
-		<h4>Profile of {{vm.user._email}}</h4>
+		<h4>Profile of {{vm.user.email}}</h4>
 		<div class="container">
 			<form ng-submit="vm.onSearch()">
 
@@ -15,7 +15,14 @@
 			</form>
 		</div>
 
-		<div ng-if="vm.gotSearchResult">Search Result</div>
+		<div ng-if="vm.gotSearchResult">
+			Search Result
+			<ul ng-if="vm.searchResult.length">
+				<li ng-repeat="user in vm.searchResult">{{ user.email }}</li>
+			</ul>
+
+			<p ng-if="vm.searchResult.length === 0">Search returned no results</p>
+		</div>
 
 		<a ui-sref="home">My Photo Stream</a>
 	</div>

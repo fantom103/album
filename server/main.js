@@ -52,7 +52,7 @@ app.use(passport.session());
 app.use(flash());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-app.use('/api', api(passport, photoStore, config));
+app.use('/api', api(passport, userStore, photoStore, config));
 
 if (config.get('serveStatic')) {
   const path = `${__dirname}/${config.get('upload:dest')}`;
