@@ -12,7 +12,7 @@ class MemoryStore {
 	}
 
 	getAll() {
-		return new Promise((resolve, reject) => {
+		return new Promise((resolve) => {
 			setTimeout(() => {
 				resolve(this._data.concat([]));
 			}, 1);
@@ -32,30 +32,24 @@ class MemoryStore {
 	}
 
 	find(id) {
-		return new Promise((resolve, reject) => {
+		return new Promise((resolve) => {
 			setTimeout(() => {
 				const value = this._findItemByIdSync(id);
-				value ? resolve(value) : reject(Error('Could not find item'));
+				resolve(value);
 			});
 		});
 	}
 
-	update(id, item) {
+	update(item) {
 		return new Promise((resolve, reject) => {
 			setTimeout(() => {
+			  const id = item[this._idField];
 				const index = this._findIndexByIdSync(id);
 
 				if (index === -1) {
-					reject(Error('Could not find item'));
+					reject(Error(`Could not find item with id ${id}`));
 					return;
 				}
-
-				if (item.id !== undefined && item.id !== id) {
-					reject(Error('Item ID set and is not the same as passed ID'));
-					return;
-				}
-
-				item.id = id;
 
 				this._data[index] = item;
 				resolve(item);
@@ -82,7 +76,7 @@ class MemoryStore {
 		return this._data.find((el) => el[this._idField] === id);
 	}
 
-	_findIndexByIdSync() {
+	_findIndexByIdSync(id) {
 		return this._data.findIndex((el) => el[this._idField] === id);
 	}
 

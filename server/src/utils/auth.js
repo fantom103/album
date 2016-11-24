@@ -8,8 +8,14 @@ module.exports = function(passport, store) {
 
   passport.deserializeUser(function(id, done) {
     store
-      .getUserById(id)
-      .then((user) => done(null, user))
+      .findUserById(id)
+      .then((user) => {
+        if (user) {
+          done(null, user);
+        } else {
+          done(Error('NotFound'));
+        }
+      })
       .catch((e) => done(e));
   });
 

@@ -4,7 +4,7 @@ const MemoryStore = require('./memory-store');
 class UserStore extends MemoryStore {
 
   constructor(sampleUsers) {
-    super(sampleUsers, 'uuid', true, '_id');
+    super(sampleUsers, 'uuid', false, '_id');
   }
 
   addUser(email, password) {
@@ -33,10 +33,21 @@ class UserStore extends MemoryStore {
     });
   }
 
-  getUserById(id) {
+  findUserById(id) {
     return super.find(id);
   }
 
+  followUser(followerId, targetId) {
+    return Promise.all([ this.find(followerId), this.find(targetId)])
+      .then((values) => {
+        const [follower, target] = values;
+        follower.addFollowing(target);
+        target.addFollower(follower);
+
+        return Promise.all(
+          [this.update(follower), this.update(target)]);
+      }).then((values) => values[1]);
+  }
 }
 
 module.exports = UserStore;
