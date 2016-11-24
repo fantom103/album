@@ -1,22 +1,16 @@
 const LocalStrategy = require('passport-local').Strategy;
-const User = require('./user');
-const UserStore = require('./user-store');
 
-const store = new UserStore();
-
-module.exports = function(passport) {
+module.exports = function(passport, store) {
 
   passport.serializeUser(function(user, done) {
-    console.log('Serialize user', user.getId());
     done(null, user.getId());
   });
 
   passport.deserializeUser(function(id, done) {
-    console.log('Deserialize user');
-
-    process.nextTick(() => {
-      done(null, store.getUserById(id));
-    });
+    store
+      .getUserById(id)
+      .then((user) => done(null, user))
+      .catch((e) => done(e));
   });
 
   passport.use('local-signup', new LocalStrategy({
@@ -47,6 +41,7 @@ module.exports = function(passport) {
 
           // find a user whose email is the same as the forms email
           // we are checking to see if the user trying to login already exists
+          /*
           User.findOne({'local.email': email}, function (err, user) {
             // if there are any errors, return the error
             if (err)
@@ -72,7 +67,7 @@ module.exports = function(passport) {
                 return done(null, newUser);
               });
             }
-          });
+          }); */
         }
       });
     }));
@@ -83,17 +78,12 @@ module.exports = function(passport) {
       passwordField : 'password',
       passReqToCallback : true
     },
-    function(req, email, password, done) {
+    (req, email, password, done) => {
+      store
+        .findUser(email, password)
+        .then((user) => done(null, user))
+        .catch((e) => done(null, false));
+    })
+  );
 
-      process.nextTick(() => {
-        const user = store.findUser(email, password);
-        if (!user) {
-          done(null, false);
-          return;
-        }
-
-        done(null, user);
-
-      });
-    }));
 };

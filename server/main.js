@@ -7,16 +7,20 @@ const cookie = require('cookie');
 const cookieParser = require('cookie-parser');
 const flash = require('connect-flash');
 
+const api = require('./src/api/api');
+const config = require('./src/utils/config');
+
+const MemoryStore = require('./src/utils/memory-store');
+const sampleData = require('./src/data/sample-data');
+const photoStore = new MemoryStore(sampleData);
+
+const UserStore = require('./src/utils/user-store');
+const sampleUsers = require('./src/data/sample-users');
+const userStore = new UserStore(sampleUsers);
+
 const passport = require('passport');
-const configAuth = require('./src/auth');
-configAuth(passport);
-
-const api = require('./src/api');
-const config = require('./src/config');
-
-const Store = require('./src/memory-store');
-const sampleData = require('./src/sample-data');
-const store = new Store(sampleData);
+const configAuth = require('./src/utils/auth');
+configAuth(passport, userStore);
 
 const app = express();
 const server = http.createServer(app);
@@ -48,7 +52,7 @@ app.use(passport.session());
 app.use(flash());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-app.use('/api', api(passport, store, config));
+app.use('/api', api(passport, photoStore, config));
 
 if (config.get('serveStatic')) {
   const path = `${__dirname}/${config.get('upload:dest')}`;

@@ -46,27 +46,42 @@ module.exports = (passport, store, config) => {
   router
     .route('/album')
     .get((req, res) => {
-      store.getAll(onStoreResponse(res, OK));
+      store
+        .getAll()
+        .then((data) => onStoreResponse(res, OK)(null, data))
+        .catch((err) => onStoreResponse(res, OK)(err));
     })
     .post((req, res) => {
       const item = req.body;
-      store.add(item, onStoreResponse(res, CREATED));
+      store
+        .add(item)
+        .then((item) => onStoreResponse(res, CREATED)(null, item))
+        .catch((err) => onStoreResponse(res, CREATED)(err))
     });
 
   router
     .route('/album/:picId')
     .get((req, res) => {
       const id = +req.params.picId;
-      store.getById(id, onStoreResponse(res, OK));
+      store
+        .find(id)
+        .then((item) => onStoreResponse(res, OK)(null, item))
+        .catch((err) => onStoreResponse(res, OK)(err));
     })
     .put((req, res) => {
       const id = +req.params.picId;
       const item = req.body;
-      store.update(id, onStoreResponse(res, OK));
+      store
+        .update(id, item)
+        .then((item) => onStoreResponse(res, OK)(null, item))
+        .catch((err) => onStoreResponse(res, OK)(err))
     })
     .delete((req, res) => {
       const id = +req.params.picId;
-      store.remove(id, onStoreResponse(res, OK));
+      store
+        .remove(id)
+        .then((item) => onStoreResponse(res, OK)(null, item))
+        .catch((err) => onStoreResponse(res, OK)(err));
     });
 
   router
@@ -84,8 +99,6 @@ module.exports = (passport, store, config) => {
       });
     });
 
-
-
   /**
    * Error handling middleware. These will be quite
    * bad errors that other layers didn't handle. For example
@@ -100,20 +113,12 @@ module.exports = (passport, store, config) => {
 };
 
 const getImageSizeById = (id, store, cb) => {
-  async.waterfall([
-    (cb) => {
-      store.getById(id, cb);
-		},
-    (photo, cb) => {
-      sizeOf(photo.path, cb)
-    }
-  ], (err, res) => {
-    if (err) {
-      cb(err);
-      return;
-    }
-    cb(null, res);
-  });
+  store
+    .find(id)
+    .then((photo) => {
+      sizeOf(photo.path, cb);
+    })
+    .catch(cb);
 };
 
 const onStoreResponse = (res, successCode) => {

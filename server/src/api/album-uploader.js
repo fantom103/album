@@ -1,7 +1,7 @@
 const express = require('express');
 const multer = require('multer');
 const fs = require('fs');
-const iu = require('./image-utils');
+const iu = require('../utils/image-utils');
 const {errors, sendError} = require('./errors');
 
 const {CREATED} = require('http-status-codes');
