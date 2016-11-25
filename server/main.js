@@ -37,21 +37,30 @@ const sessionMiddleware = session({
   saveUninitialized: true,
   resave: true,
   cookie: {
-    path: '/',
     httpOnly: true,
-    secure: false,
-    maxAge: null
+    secure: false
   }
 });
 
-app.use(cors());
-app.use(cookieParser(SESSION_COOKIE_SECRET));
+app.use(cors({
+  credentials: true,
+  origin: 'http://localhost:3000',
+}));
+// app.use(cookieParser());
 app.use(sessionMiddleware);
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+
+app.use((req, res, next) => {
+  console.log('User is',
+    req.user ? req.user.getEmail() : 'not set',
+    'session is [' + req.session.id + ']');
+  next();
+});
+
 app.use('/api', api(passport, userStore, photoStore, config));
 
 if (config.get('serveStatic')) {

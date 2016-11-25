@@ -26,24 +26,27 @@ angular.module('app', [
     photoPrefix: `${server}/`,
     uploadEndpoint: `${server}/api/upload`
   })
-  .config(($locationProvider) => {
+  .config(($locationProvider, $httpProvider) => {
     "ngInject";
     // @see: https://github.com/angular-ui/ui-router/wiki/Frequently-Asked-Questions
     // #how-to-configure-your-server-to-work-with-html5mode
     $locationProvider.html5Mode(true).hashPrefix('!');
+    $httpProvider.defaults.withCredentials = true;
 	})
   .component('app', AppComponent)
   .run(($rootScope, $state, sessionFactory) => {
     "ngInject";
     $rootScope.$on('$stateChangeStart',
       (event, toState) => {
+        console.log('State change start');
         const target = toState.name;
-        const whitelist = ['login', 'signup'];
+        const whitelist = ['login', 'signup', 'landing'];
+
 
         if (!sessionFactory.isLoggedIn() && !whitelist.includes(target)) {
-          console.log('Preventing state change');
+
           event.preventDefault();
-          $state.go('login');
+          $state.go('landing');
         }
       }
     );

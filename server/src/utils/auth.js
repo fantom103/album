@@ -3,10 +3,12 @@ const LocalStrategy = require('passport-local').Strategy;
 module.exports = function(passport, store) {
 
   passport.serializeUser(function(user, done) {
+    console.log('Serializing user', user.getEmail(), user.getId());
     done(null, user.getId());
   });
 
   passport.deserializeUser(function(id, done) {
+    console.log('Deserialize user');
     store
       .findUserById(id)
       .then((user) => {
@@ -87,8 +89,14 @@ module.exports = function(passport, store) {
     (req, email, password, done) => {
       store
         .findUser(email, password)
-        .then((user) => done(null, user))
-        .catch((e) => done(null, false));
+        .then((user) => {
+          console.log('Authorized', user);
+          done(null, user)
+        })
+        .catch((e) => {
+          console.log('Error authorizing', e);
+          done(null, false)
+        });
     })
   );
 

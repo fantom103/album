@@ -32,6 +32,11 @@ const userFactory = function ($http, config, $q, sessionFactory) {
     return $http.get(`${api}/user/${uid}/photos`);
   };
 
+  const getUserFollowing = () => {
+    // const uid = sessionFactory.getUserId();
+    // return $http.get(`${api}/user/${uid}/photos`);
+  };
+
   return {
     getUsers,
     findUsersByEmail,

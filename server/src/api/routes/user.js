@@ -120,7 +120,6 @@ const getUserPhotos = (store) => {
   }
 };
 
-
 const getBasicInfo = (u) => {
   const {_id, email} = u;
   return {

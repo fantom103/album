@@ -1,6 +1,6 @@
 const express = require('express');
 
-const { OK } = require('http-status-codes');
+const { OK, UNAUTHORIZED } = require('http-status-codes');
 
 module.exports = (passport) => {
 
@@ -23,6 +23,17 @@ module.exports = (passport) => {
       res.status(OK).json({
         'hello': 'world'
       });
+    });
+
+  router
+    .route('/session')
+    .get((req, res) => {
+      const { user } = req;
+      if (user) {
+        res.status(OK).json(user)
+      } else {
+        res.status(UNAUTHORIZED).json({});
+      }
     });
 
   return router;

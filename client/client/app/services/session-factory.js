@@ -11,6 +11,19 @@ const sessionFactory = function ($http, $q, config) {
 
   const getUserId = () => user._id;
 
+  const getSession = () => {
+    return $http
+      .get(`${api}/session`)
+      .then((payload) => {
+        console.log('then');
+        payload.user;
+      })
+      .catch((payload) => {
+        console.log('catch');
+        return null;
+      });
+  };
+
   const login = (email, password) => {
     const deferred = $q.defer();
 
@@ -31,7 +44,8 @@ const sessionFactory = function ($http, $q, config) {
     login,
     getUser,
     isLoggedIn,
-    getUserId
+    getUserId,
+    getSession
   }
 };
 
