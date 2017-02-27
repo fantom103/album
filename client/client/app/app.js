@@ -10,7 +10,7 @@ import Directives from './directives/directives';
 import Filters from './filters/filters';
 import AppComponent from './app.component';
 
-const base = 'http://localhost:9090';
+const base = '';
 
 angular.module('app', [
   uiRouter,

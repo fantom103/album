@@ -9,8 +9,8 @@ const fileInput = ($http) => {
 		link: (scope, el, attrs) => {
 			el.bind('change', () => {
 
-				let formData = new FormData();
-				let fileField = el.children()[0];
+				const formData = new FormData();
+				const fileField = el.children()[0];
 				formData.append('image', fileField.files[0]);
 				el.children().eq(0).val('');
 
@@ -21,9 +21,9 @@ const fileInput = ($http) => {
 					headers: {
 						'Content-Type': undefined
 					}
-				}).success((data) => {
+				}).then((response) => {
 					scope.onUploaded({
-						path: data.path
+						path: response.data.path
 					});
 				});
 			});
