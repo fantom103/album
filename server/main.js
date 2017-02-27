@@ -1,4 +1,5 @@
 const http = require('http');
+const path = require('path');
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -21,13 +22,22 @@ app.use(bodyParser.json());
 app.use('/api', api(store, config));
 
 if (config.get('serveStatic')) {
-  const path = `${__dirname}/${config.get('upload:dest')}`;
+  const staticPath = path.normalize(
+    `${__dirname}/${config.get('upload:dest')}`);
 
   console.log('Serving static files on /upload');
-  app.use('/upload', express.static(path));
+  app.use('/upload', express.static(staticPath));
 
   // Serving sample files too
   app.use('/upload', express.static(`${__dirname}/samples`));
+}
+
+if (config.get('client:serve')) {
+  const staticPath = path.normalize(
+    `${__dirname}/${config.get('client:path')}`);
+
+  console.log('Serving client files from', staticPath);
+  app.use('/', express.static(staticPath));
 }
 
 server.listen(port, host, () => {

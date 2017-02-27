@@ -28,7 +28,7 @@ export default class AddPhotoFormController {
 	}
 
 	reset() {
-		this.pic = 'img/placeholder.jpg';
+		this.pic = '';
 		this.path = '';
 	}
 }
