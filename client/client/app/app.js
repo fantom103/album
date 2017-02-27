@@ -10,16 +10,20 @@ import Directives from './directives/directives';
 import Filters from './filters/filters';
 import AppComponent from './app.component';
 
+const base = 'http://localhost:9090';
+
 angular.module('app', [
-		uiRouter,
-		Components.name,
-		Pages.name,
-		Services.name,
-		Filters.name,
-		Directives.name
-	])
-	.constant('config', {
-		api: 'http://ec2-52-87-241-215.compute-1.amazonaws.com:9090/api'
+  uiRouter,
+  Components.name,
+  Pages.name,
+  Services.name,
+  Filters.name,
+  Directives.name
+])
+  .constant('config', {
+    server: base,
+    api: `${base}/api`,
+    upload: `${base}/api/upload`
 	})
 	.config(($locationProvider) => {
 		"ngInject";

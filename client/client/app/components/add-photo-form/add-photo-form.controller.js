@@ -1,19 +1,21 @@
 export default class AddPhotoFormController {
-	constructor(photoFactory) {
-		"ngInject";
+  constructor(photoFactory, config) {
+    'ngInject';
 
-		this._photoFactory = photoFactory;
+    this._photoFactory = photoFactory;
+    this._server = config.server;
 
-		this.pic = '';
-		this.path = '';
-		this.title = '';
-		this.reset();
+    this.uploadPath = config.upload;
+    this.pic = '';
+    this.path = '';
+    this.title = '';
+    this.reset();
 
 	}
 
 	onImageUploaded(path) {
 		this.path = path;
-		this.pic = 'http://ec2-52-87-241-215.compute-1.amazonaws.com:9090/' + path;
+		this.pic = this._server + '/' + path;
 	}
 
 	postPhoto() {

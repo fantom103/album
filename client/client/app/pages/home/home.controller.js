@@ -1,6 +1,6 @@
 class HomeController {
 	constructor($state, photoFactory) {
-		"ngInject";
+		'ngInject';
 
 		this._photoFactory = photoFactory;
 		this.$state = $state;

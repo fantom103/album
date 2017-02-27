@@ -1,8 +1,11 @@
 export default class PhotoCardController {
-	constructor() {
-	}
+  constructor(config){
+    'ngInject';
 
-	showDetails() {
-		this.onShowDetails();
-	}
+    this.server = config.server;
+  }
+
+  showDetails() {
+    this.onShowDetails();
+  }
 }
