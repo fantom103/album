@@ -1,19 +1,19 @@
 const sampleData = [
 	{
 		path: 'upload/sample-1.jpg',
-		title: 'Jessica'
+		title: 'Head Proportions'
 	},
 	{
 		path: 'upload/sample-2.jpg',
-		title: 'Kelly'
+		title: 'Locomotion'
 	},
 	{
 		path: 'upload/sample-3.jpg',
-		title: 'Layla'
+		title: 'Comics Poses'
 	},
 	{
 		path: 'upload/sample-4.jpg',
-		title: 'Anna'
+		title: 'Hands'
 	}
 ];
 

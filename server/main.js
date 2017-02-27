@@ -21,12 +21,15 @@ app.use(bodyParser.json());
 app.use('/api', api(store, config));
 
 if (config.get('serveStatic')) {
-	const path = `${__dirname}/${config.get('upload:dest')}`;
+  const path = `${__dirname}/${config.get('upload:dest')}`;
 
-	console.log('Serving static files on /upload');
-	app.use('/upload', express.static(path));
+  console.log('Serving static files on /upload');
+  app.use('/upload', express.static(path));
+
+  // Serving sample files too
+  app.use('/upload', express.static(`${__dirname}/samples`));
 }
 
 server.listen(port, host, () => {
-	console.log(`Listening to http://${host}:${port}`);
+  console.log(`Listening to http://${host}:${port}`);
 });
